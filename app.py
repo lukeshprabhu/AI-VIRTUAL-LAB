@@ -1,1 +1,31 @@
 
+from flask import Flask, send_from_directory
+import os
+
+app = Flask(__name__)
+
+# Home page - XO Game
+@app.route("/")
+def home():
+    return send_from_directory(".", "index.html")
+
+
+# Health check
+@app.route("/health")
+def health():
+    return {
+        "status": "success",
+        "message": "XO Game is running!"
+    }
+
+
+# Start application
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))
+
+    app.run(
+        host="0.0.0.0",
+        port=port,
+        debug=False
+    )
+
